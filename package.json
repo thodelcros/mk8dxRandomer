@@ -1,0 +1,26 @@
+{
+  "name": "mk8dx-randomer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:thodelcros/mk8dxRandomer.git",
+  "author": "Thomas Delcros <delcrosthomas@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.5",
+    "babel-preset-es2015": "^6.24.1",
+    "css-loader": "^2.1.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.5.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "webpack": "^4.29.3",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "scripts": {
+    "start:dev": "webpack-dev-server"
+  }
+}
