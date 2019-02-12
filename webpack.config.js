@@ -1,42 +1,55 @@
-const path =  require('path');
-const HtmlWebPackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: {
-        app: [
-            './app/index.js',
-            './app/styles/index.sass',
-        ],
-    },
+    entry: './app/src/index.js',
     output: {
-        filename: 'app.bundle.js',
-        path: path.resolve(__dirname, 'dist'),
-        publicPath: '/',
+        path: path.join(__dirname, '/dist'),
+        filename: 'index.[hash].js',
+    },
+    resolve: {
+        extensions: ['.js', '.json', '.jsx'],
     },
     module: {
         rules: [
             {
-                test: /\.scss$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    'sass-loader',
+                test: /\.(js|jsx)$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                },
+            },
+            {
+                test: /\.(css|scss)$/,
+                rules: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    {
+                        test: /\.scss$/,
+                        loader: 'sass-loader',
+                    },
                 ],
             },
             {
-                test: /\.js$/,
-                exclude: '/node_modules',
+                test: /\.html$/,
                 use: [
                     {
-                        loader: 'babel-loader',
-                        options: { cacheDirectory: true },
-                    }
+                        loader: 'html-loader',
+                    },
                 ],
-            }
+            },
         ],
     },
+    plugins: [
+        new HtmlWebpackPlugin({
+            template: './app/public/index.html',
+        }),
+    ],
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
@@ -44,12 +57,4 @@ module.exports = {
         port: 3000,
         overlay: true,
     },
-    plugins: [
-        new HtmlWebPackPlugin({
-            template: './app/index.html',
-            filename: './index.html',
-        }),
-        new MiniCssExtractPlugin
-    ]
-
 };
