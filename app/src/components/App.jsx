@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { Fragment, Component } from 'react';
+import { getCharacters } from '../firebase';
+import Navbar from './Navbar';
 
-const App = () => (
-    <h1>Coucou</h1>
-);
+class App extends Component {
+    constructor(props) {
+        super(props);
+        this.getCharacters = getCharacters;
+    }
+
+    componentDidMount() {
+        this.getCharacters.then((snapshot) => {
+            const characters = snapshot.val();
+        });
+    }
+
+    render() {
+        return (
+            <Fragment>
+                <Navbar />
+            </Fragment>
+        );
+    }
+}
 
 export default App;
