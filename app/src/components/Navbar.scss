@@ -1,5 +1,6 @@
-@import "../utils/variables";
+@import "../utils/styles/index";
 
 .navbar {
     background-color: $light-gray;
+    height: 75px;
 }

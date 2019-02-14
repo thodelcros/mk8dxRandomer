@@ -5,6 +5,16 @@
       align-items: center;
       justify-content: center;
     }
+    &-column{
+      align-items: center;
+      justify-content: flex-start;
+      flex-direction: column;
+    }
+    &-start-column {
+      align-items: flex-start;
+      justify-content: center;
+      flex-direction: column;
+    }
     &-around{
       align-items: center;
       justify-content: space-around;

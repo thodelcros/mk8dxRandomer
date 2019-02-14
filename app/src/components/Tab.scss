@@ -1,0 +1,30 @@
+@import '../utils/styles/index';
+
+.tab {
+    border-radius: $tab-radius;
+    font-size: $small-font-size;
+    border: 1px solid;
+    width: 90px;
+    padding: 2px 0;
+    text-align: center;
+    margin: 0 2px;
+    font-weight: 700;
+}
+
+.tab.red {
+    border-color: $red-text;
+    color: $red-text;
+}
+
+.tab.blue {
+    border-color: $blue;
+    color: $blue;
+}
+
+.tab.red.focus {
+    background-color: $red-light;
+}
+
+.tab.blue.focus {
+    background-color: $blue-light;
+}

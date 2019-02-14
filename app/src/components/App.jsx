@@ -1,6 +1,9 @@
 import React, { Fragment, Component } from 'react';
 import { getCharacters } from '../firebase';
 import Navbar from './Navbar';
+import Layout from './Layout';
+import Header from './Header';
+import Main from './Main';
 
 class App extends Component {
     constructor(props) {
@@ -18,6 +21,10 @@ class App extends Component {
         return (
             <Fragment>
                 <Navbar />
+                <Layout>
+                    <Header text="home" />
+                    <Main />
+                </Layout>
             </Fragment>
         );
     }

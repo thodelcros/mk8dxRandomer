@@ -1,8 +1,12 @@
-@import "utils/index";
+@import "utils/styles/index";
 
 body {
     font-family: 'Roboto', sans-serif;
     color: $text-default;
+    font-weight: normal;
 }
 
-
+h2, h1 {
+    font-size: $main-font-size;
+    font-weight: normal;
+}
