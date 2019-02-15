@@ -1,0 +1,9 @@
+@import 'variables';
+
+.secondary-button {
+    background: #FFFFFF;
+    box-shadow: $shadow;
+    border-radius: $radius;
+    width: 70px;
+    height: 35px;
+}

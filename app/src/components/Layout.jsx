@@ -12,7 +12,7 @@ const Layout = ({ children }) => (
 );
 
 Layout.propTypes = {
-    children: PropTypes.shape({}).isRequired,
+    children: PropTypes.array.isRequired,
 };
 
 export default Layout;
