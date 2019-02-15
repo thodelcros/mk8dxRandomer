@@ -1,0 +1,33 @@
+@import '../utils/styles/index';
+
+.randomer {
+    .randomer-header {
+        margin-top: 50px;
+        h2 {
+           font-weight: bold;
+           max-width: 140px;
+        }
+    }
+    .randomer-controls {
+        margin-top: 60px;
+        p {
+            margin: 0;
+        }
+        p:first-child, p:nth-child(2) {
+            font-weight: bold;
+            font-size: $big-font-size;
+        }
+        p:nth-child(2) {
+            color: $blue-light;
+        }
+        .buttons {
+            margin: 50px 0;
+            button:first-child {
+                color: $green;
+            }
+            button:last-child {
+                color: $red;
+            }
+        }
+    }
+}

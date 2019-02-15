@@ -19,7 +19,7 @@ const Tab = ({ value, focus = false }) => (
 
 Tab.propTypes = {
     value: PropTypes.string.isRequired,
-    focus: PropTypes.bool.isRequired,
+    focus: PropTypes.bool,
 };
 
 export default Tab;

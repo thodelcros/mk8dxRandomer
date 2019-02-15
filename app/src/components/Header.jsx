@@ -4,7 +4,7 @@ import content from '../utils/content/content';
 import './Header.scss';
 
 const Header = () => (
-    <div className="header">
+    <div className="header block">
         {content.home}
     </div>
 );
