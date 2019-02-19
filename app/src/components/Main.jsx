@@ -4,7 +4,7 @@ import Randomer from './Randomer';
 import './Main.scss';
 
 const Main = () => (
-    <div className="main">
+    <div className="main block">
         <Tabs />
         <Randomer />
     </div>

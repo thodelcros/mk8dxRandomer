@@ -21,9 +21,11 @@ class Randomer extends Component {
     }
 
     onDecrement() {
-        this.setState({
-            number: this.state.number - 1,
-        });
+        if (this.state.number > 0) {
+            this.setState({
+                number: this.state.number - 1,
+            });
+        }
     }
 
     render() {

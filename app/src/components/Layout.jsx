@@ -6,7 +6,7 @@ import './Layout.scss';
 const cloudinaryCore = new Cloudinary({ cloud_name: process.env.CLOUDINARY_CLOUD_NAME });
 
 const Layout = ({ children }) => (
-    <div className="layout flex-column" style={{ backgroundImage: `url('${cloudinaryCore.url('mk8dxRandomer/public/background')}')` }}>
+    <div className="layout" style={{ backgroundImage: `url('${cloudinaryCore.url('mk8dxRandomer/public/background')}')` }}>
         {children}
     </div>
 );
