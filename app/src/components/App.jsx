@@ -1,30 +1,35 @@
-import React, { Fragment, Component } from 'react';
-import Navbar from './Navbar';
-import Layout from './Layout';
-import Header from './Header';
-import Actions from './Actions';
-import Main from './Main';
+import React, { Component } from 'react';
+import { CloudinaryContext } from 'cloudinary-react';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import reducer from '../store/reducers';
+import Routes from './Routes';
 
 class App extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            random: false,
-        };
+    constructor() {
+        super();
+        this.history = createBrowserHistory();
+        /* eslint-disable no-underscore-dangle */
+        this.composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+        /* eslint-enable */
+        this.store = createStore(
+            reducer,
+            this.composeEnhancers(applyMiddleware(thunk)),
+        );
     }
 
     render() {
-        const mainComponent = this.state.random ? 'random' : 'characters';
-
         return (
-            <Fragment>
-                <Navbar />
-                <Layout>
-                    <Header text="home" />
-                    <Main component={mainComponent} />
-                    <Actions />
-                </Layout>
-            </Fragment>
+            <Provider store={this.store}>
+                <CloudinaryContext cloudName={process.env.CLOUDINARY_CLOUD_NAME}>
+                    <Router history={this.history}>
+                        <Routes />
+                    </Router>
+                </CloudinaryContext>
+            </Provider>
         );
     }
 }

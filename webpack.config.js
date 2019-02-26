@@ -17,6 +17,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'index.[hash].js',
+        publicPath: '/',
     },
     resolve: {
         extensions: ['.js', '.json', '.jsx'],
@@ -65,6 +66,7 @@ module.exports = {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
         host: 'localhost',
+        historyApiFallback: true,
         port: 3000,
         overlay: true,
     },

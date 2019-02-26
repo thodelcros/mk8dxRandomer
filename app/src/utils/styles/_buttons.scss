@@ -28,3 +28,24 @@
         margin-right: 5px;
     }
 }
+
+.switch-button {
+    background: $blue;
+    color: white;
+    font-size: $small-font-size;
+    width: 100px;
+    border-radius: 7px;
+    padding: 3px 0;
+}
+
+.navigation-button {
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    background-color: $red;
+    color: white;
+    margin: 0 12px;
+    &:disabled {
+        visibility: hidden;
+    }
+}

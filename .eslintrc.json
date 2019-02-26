@@ -21,7 +21,10 @@
         "react/jsx-indent": ["error", 4],
         "react/jsx-indent-props": ["error", 4],
         "react/require-default-props": "off",
-        "yoda": ["error", "always", { "onlyEquality": true }]
+        "yoda": ["error", "always", { "onlyEquality": true }],
+        "jsx-a11y/interactive-supports-focus": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off"
     },
     "globals": {
         "document": true

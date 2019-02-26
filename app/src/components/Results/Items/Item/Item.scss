@@ -1,0 +1,14 @@
+@import '../../../../utils/styles/index';
+
+.item {
+    padding: 10px 0;
+    margin-bottom: 25px;
+    .infos {
+        text-align: center;
+        p {
+            margin-bottom: 0;
+            font-weight: bold;
+            color: $gray;
+        }
+    }
+}

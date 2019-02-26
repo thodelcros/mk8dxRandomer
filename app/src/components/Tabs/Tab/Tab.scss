@@ -1,4 +1,4 @@
-@import '../utils/styles/index';
+@import '../../../utils/styles/index';
 
 .tab {
     border-radius: $tab-radius;
@@ -22,10 +22,10 @@
     color: $blue;
 }
 
-.tab.red.focus {
+.tab.red.focused {
     background-color: $red-light;
 }
 
-.tab.blue.focus {
+.tab.blue.focused {
     background-color: $blue-light;
 }

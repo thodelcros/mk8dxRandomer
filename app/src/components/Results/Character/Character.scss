@@ -1,0 +1,17 @@
+@import '../../../utils/styles/index';
+
+.character {
+    .infos {
+        p {
+            font-size: $big-font-size-support;
+            font-weight: bold;
+            color: $gray;
+            margin-bottom: 0;
+        }
+        p:first-child {
+            font-size: $big-font-size;
+            color: $text-default;
+            margin-bottom: -15px;
+        }
+    }
+}
