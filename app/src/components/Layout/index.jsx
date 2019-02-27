@@ -6,7 +6,7 @@ import Header from '../Header';
 import Actions from '../Actions';
 import Main from '../Main';
 
-const Layout = ({ component: Component, text = 'home', displayTabs = true }) => (
+const Layout = ({ component: Component, text, displayTabs }) => (
     <Fragment>
         <Navbar />
         <Wrapper>
@@ -23,6 +23,11 @@ Layout.propTypes = {
     component: PropTypes.func.isRequired,
     text: PropTypes.string,
     displayTabs: PropTypes.bool,
+};
+
+Layout.defaultProps = {
+    text: 'home',
+    displayTabs: true,
 };
 
 export default Layout;

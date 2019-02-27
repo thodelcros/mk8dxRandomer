@@ -10,3 +10,7 @@ h2, h1 {
     font-size: $main-font-size;
     font-weight: normal;
 }
+
+button:focus {
+    outline: none;
+}
