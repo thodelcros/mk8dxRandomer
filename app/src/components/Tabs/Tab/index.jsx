@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import './Tab.scss';
 
-const Tab = ({ value, path, focused = false, changeTab }) => (
+const Tab = ({ value, path, focused = false }) => (
     <Link to={path}>
         <div
             className={classNames(
@@ -15,11 +15,6 @@ const Tab = ({ value, path, focused = false, changeTab }) => (
                     blue: 'Aléatoire' === value,
                 },
             )}
-            onClick={
-                !focused ?
-                    () => changeTab() :
-                    null
-            }
         >
             <span>{value}</span>
         </div>
@@ -30,7 +25,6 @@ Tab.propTypes = {
     value: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
     focused: PropTypes.bool,
-    changeTab: PropTypes.func.isRequired,
 };
 
 export default Tab;

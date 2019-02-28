@@ -5,20 +5,15 @@ const initialState = {
     wheels: {},
     gliders: {},
     vehicules: {},
-    randomTabFocused: true,
     focusedCharacters: {},
     nbOfCompo: 1,
     loading: false,
 };
 
 const reducer = (state = initialState, { type, ...payload }) => {
-    const { randomTabFocused, nbOfCompo, loading } = state;
+    const { nbOfCompo, loading } = state;
 
     switch (type) {
-        case 'SWITCH_TAB':
-            return set('randomTabFocused', !randomTabFocused, state);
-        case 'SET_RANDOM_TAB':
-            return set('randomTabFocused', true, state);
         case 'CHANGE_NB_OF_COMPO':
             if ('decrement' === payload.action) {
                 return set('nbOfCompo', Math.max(nbOfCompo - 1, 1), state);

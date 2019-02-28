@@ -1,11 +1,3 @@
-export const switchTab = () => ({
-    type: 'SWITCH_TAB',
-});
-
-export const setRandomTab = () => ({
-    type: 'SET_RANDOM_TAB',
-});
-
 export const changeNbOfCompo = (action) => ({
     type: 'CHANGE_NB_OF_COMPO',
     action,

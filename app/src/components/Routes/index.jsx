@@ -15,6 +15,7 @@ const Routes = () => (
             component={
                 withProps({
                     component: Randomer,
+                    focus: 'random',
                 })(Layout)
             }
         />
@@ -24,6 +25,7 @@ const Routes = () => (
             component={
                 withProps({
                     component: CharactersSelection,
+                    focus: 'characters',
                 })(Layout)
             }
         />

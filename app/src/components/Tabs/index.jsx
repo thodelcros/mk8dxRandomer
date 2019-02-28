@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Tab from './Tab';
-import { switchTab } from '../../store/actions';
 
 const tabs = {
     characters: {
@@ -15,31 +13,23 @@ const tabs = {
     },
 };
 
-const Tabs = ({ randomTabFocused, changeTab }) => (
+const Tabs = ({ focus }) => (
     <div className="tabs flex flex-center">
         <Tab
             value={tabs.random.name}
             path={tabs.random.path}
-            focused={randomTabFocused}
-            changeTab={changeTab}
+            focused={'random' === focus}
         />
         <Tab
             value={tabs.characters.name}
             path={tabs.characters.path}
-            focused={!randomTabFocused}
-            changeTab={changeTab}
+            focused={'characters' === focus}
         />
     </div>
 );
 
 Tabs.propTypes = {
-    randomTabFocused: PropTypes.bool.isRequired,
-    changeTab: PropTypes.func.isRequired,
+    focus: PropTypes.string,
 };
 
-export default connect(
-    ({ randomTabFocused }) => ({ randomTabFocused }),
-    (dispatch) => ({
-        changeTab: () => dispatch(switchTab()),
-    }),
-)(Tabs);
+export default Tabs;
