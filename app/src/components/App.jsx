@@ -4,9 +4,18 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
+import firebase from 'firebase';
 import { createBrowserHistory } from 'history';
 import reducer from '../store/reducers';
 import Routes from './Routes';
+import { toggleLoading, loadData } from '../store/actions';
+
+firebase.initializeApp({
+    apiKey: process.env.FIREBASE_API_KEY,
+    databaseURL: 'https://mk8dxrandomer.firebaseio.com',
+});
+
+const dbRef = firebase.database();
 
 class App extends Component {
     constructor() {
@@ -17,8 +26,14 @@ class App extends Component {
         /* eslint-enable */
         this.store = createStore(
             reducer,
-            this.composeEnhancers(applyMiddleware(thunk)),
+            this.composeEnhancers(applyMiddleware(thunk.withExtraArgument(dbRef))),
         );
+    }
+
+    async componentDidMount() {
+        this.store.dispatch(toggleLoading());
+        this.store.dispatch(loadData());
+        this.store.dispatch(toggleLoading());
     }
 
     render() {

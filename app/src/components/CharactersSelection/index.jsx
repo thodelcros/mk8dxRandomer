@@ -1,40 +1,23 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
+import { isEmpty } from 'lodash/fp';
 import { connect } from 'react-redux';
 import { Image } from 'cloudinary-react';
 import classNames from 'classnames';
 import './CharactersSelection.scss';
-import { loadCharacters } from '../../store/actions';
-// characterClickedHandler(id) {
-//     const { characters } = this.state;
-//     const character = characters[id];
-//     const result = {
-//         ...characters,
-//         [id]: {
-//             ...character,
-//             focused: !character.focused,
-//         },
-//     };
-//     this.setState({
-//         characters: result,
-//     });
-// }
 
-class CharactersSelection extends Component {
-    constructor(props) {
-        super(props);
-        this.loadData = props.loadData;
-    }
-
-    componentDidMount() {
-        this.loadData();
-    }
-
-    render() {
-        return (
+const CharactersSelection = ({ characters, loading }) => (
+    loading || isEmpty(characters) ?
+        (
+            <div className="loader flex flex-around">
+                <Loader type="Oval" color="#ED0000" />
+            </div>
+        ) :
+        (
             <div className="characters-selection flex flex-wrap flex-around">
                 {
-                    Object.entries(this.props.characters).map(([id, { imageUrl, focused }]) => (
+                    Object.entries(characters).map(([id, { imageUrl, focused }]) => (
                         <div
                             className={classNames('character-head', { focused })}
                             key={id}
@@ -44,21 +27,15 @@ class CharactersSelection extends Component {
                     ))
                 }
             </div>
-        );
-    }
-}
+        )
+);
 
 CharactersSelection.propTypes = {
-    loadData: PropTypes.func,
     characters: PropTypes.objectOf(PropTypes.shape({
         imageUrl: PropTypes.string,
         focused: PropTypes.bool,
     })),
+    loading: PropTypes.bool.isRequired,
 };
 
-export default connect(
-    ({ characters }) => ({ characters }),
-    (dispatch) => ({
-        loadData: () => dispatch(loadCharacters()),
-    }),
-)(CharactersSelection);
+export default connect(({ characters, loading }) => ({ characters, loading }))(CharactersSelection);

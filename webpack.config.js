@@ -13,7 +13,7 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
 
 module.exports = {
     mode: 'development',
-    entry: './app/src/index.js',
+    entry: ['@babel/polyfill', './app/src/index.js'],
     output: {
         path: path.join(__dirname, '/dist'),
         filename: 'index.[hash].js',

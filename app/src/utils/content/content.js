@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const home = (
     <h2>
@@ -11,9 +11,19 @@ const results = (
     </h2>
 );
 
+const notFound = (
+    <Fragment>
+        <h2>¯\_(ツ)_/¯</h2>
+        <h2>
+            Erreur 404
+        </h2>
+    </Fragment>
+);
+
 const content = {
     home,
     results,
+    notFound,
 };
 
 export default content;

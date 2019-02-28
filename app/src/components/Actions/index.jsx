@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { randomize } from '../../store/actions';
 import './Actions.scss';
 
 const Actions = () => (
@@ -12,5 +14,12 @@ const Actions = () => (
         </Link>
     </div>
 );
+
+// export default connect(
+//     null,
+//     (dispatch) => ({
+//         startRandomizer: () => dispatch(randomize()),
+//     }),
+// )(Actions);
 
 export default Actions;

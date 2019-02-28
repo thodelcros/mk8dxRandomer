@@ -5,6 +5,7 @@ import Layout from '../Layout';
 import CharactersSelection from '../CharactersSelection';
 import Randomer from '../Randomer';
 import Results from '../Results';
+import NotFound from '../NotFound';
 
 const Routes = () => (
     <Switch>
@@ -36,6 +37,13 @@ const Routes = () => (
                     text: 'results',
                 })(Layout)
             }
+        />
+        <Route
+            component={withProps({
+                component: NotFound,
+                displayTabs: false,
+                text: 'notFound',
+            })(Layout)}
         />
     </Switch>
 );

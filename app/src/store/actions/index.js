@@ -1,31 +1,42 @@
-import { mapValues } from 'lodash/fp';
-import { getCharacters } from '../../firebase';
-
 export const switchTab = () => ({
     type: 'SWITCH_TAB',
 });
 
-export const incrementNbOfCompo = () => ({
-    type: 'INCREMENT_NB_OF_COMPO',
+export const setRandomTab = () => ({
+    type: 'SET_RANDOM_TAB',
 });
 
-export const decrementNbOfCompo = () => ({
-    type: 'DECREMENT_NB_OF_COMPO',
+export const changeNbOfCompo = (action) => ({
+    type: 'CHANGE_NB_OF_COMPO',
+    action,
 });
 
-const setData = (data) => ({
+export const setData = (data) => ({
     type: 'SET_DATA',
     data,
 });
 
-export const loadCharacters = () => (dispatch) => {
-    getCharacters.then((snapshot) => {
-        const data = snapshot.val();
-        const characters = mapValues((value) => ({
-            ...value,
-            focused: false,
-        }))(data);
+const types = ['characters', 'wheels', 'gliders', 'vehicules'];
 
-        return dispatch(setData(characters));
-    });
+export const loadData = () => async (dispatch, _, db) => {
+    const data = await types.reduce(async (obj, type) => {
+        const dbRes = await db.ref(`/${type}`).once('value');
+        const items = await dbRes.val();
+        // eslint-disable-next-line no-param-reassign
+        obj[type] = items;
+
+        return obj;
+    }, {});
+    dispatch(setData(data));
 };
+
+export const toggleLoading = () => ({
+    type: 'TOGGLE_LOADING',
+});
+
+// export const randomize = () => (dispatch) => {
+//     getCharacters.then((snapshot) => {
+//         const characters = snapshot.values
+//     })
+
+// };
