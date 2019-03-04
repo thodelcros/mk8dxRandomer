@@ -7,7 +7,7 @@ import Actions from '../Actions';
 import Main from '../Main';
 import Tabs from '../Tabs';
 
-const Layout = ({ component: Component, text, displayTabs, focus }) => (
+const Layout = ({ component: Component, text, displayTabs, focus, back }) => (
     <Fragment>
         <Navbar />
         <Wrapper>
@@ -16,7 +16,7 @@ const Layout = ({ component: Component, text, displayTabs, focus }) => (
                 {displayTabs ? <Tabs focus={focus} /> : null}
                 <Component />
             </Main>
-            <Actions />
+            <Actions back={back} />
         </Wrapper>
     </Fragment>
 );
@@ -26,12 +26,14 @@ Layout.propTypes = {
     text: PropTypes.string,
     displayTabs: PropTypes.bool,
     focus: PropTypes.string,
+    back: PropTypes.bool,
 };
 
 Layout.defaultProps = {
     text: 'home',
     displayTabs: true,
     focus: 'random',
+    back: false,
 };
 
 export default Layout;

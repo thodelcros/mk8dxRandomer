@@ -9,7 +9,7 @@ const Main = ({ children }) => (
 );
 
 Main.propTypes = {
-    children: PropTypes.shape({}).isRequired,
+    children: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
 
 export default Main;

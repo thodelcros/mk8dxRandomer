@@ -37,6 +37,7 @@ const Routes = () => (
                     component: Results,
                     displayTabs: false,
                     text: 'results',
+                    back: true,
                 })(Layout)
             }
         />

@@ -1,4 +1,5 @@
 import { sampleSize, get } from 'lodash/fp';
+import getTypeKey from '../../utils/content/getTypeKey';
 
 const types = ['characters', 'wheels', 'gliders', 'vehicules'];
 
@@ -34,16 +35,16 @@ export const toggleLoading = () => ({
     type: 'TOGGLE_LOADING',
 });
 
-export const randomize = () => (dispatch, getState) => {
-    const nbOfCompo = get('nbOfCompo')(getState());
+const getCompos = (getState, size) => {
     const rawData = types.reduce((obj, type) => {
         const data = get(type)(getState());
         // eslint-disable-next-line no-param-reassign
-        obj[type] = sampleSize(nbOfCompo)(data);
+        obj[type] = sampleSize(size)(data);
 
         return obj;
     }, {});
-    const compos = [...Array(nbOfCompo)].reduce((obj, compo, index) => {
+
+    return [...Array(size)].reduce((obj, compo, index) => {
         // eslint-disable-next-line no-param-reassign
         obj[index] = {
             character: rawData.characters[index],
@@ -54,6 +55,35 @@ export const randomize = () => (dispatch, getState) => {
 
         return obj;
     }, {});
+};
+
+const switchItem = (getState, type) => {
+    const data = get(type)(getState());
+    const newItems = sampleSize(1)(data);
+
+    return newItems[0];
+};
+
+export const randomize = (method, type) => (dispatch, getState) => {
+    const { nbOfCompo, activeCompo, randomCompos } = getState();
+    let compos = {};
+    switch (method) {
+        case 'item': {
+            const compo = randomCompos[activeCompo];
+            compos = {
+                ...randomCompos,
+                [activeCompo]: {
+                    ...compo,
+                    [getTypeKey(type)]: switchItem(getState, type),
+                },
+            };
+            break;
+        }
+
+        default:
+            compos = getCompos(getState, nbOfCompo);
+            break;
+    }
     dispatch(setRandomCompos(compos));
 };
 
