@@ -8,10 +8,12 @@ const initialState = {
     focusedCharacters: {},
     nbOfCompo: 1,
     loading: false,
+    randomCompos: {},
+    activeCompo: 0,
 };
 
 const reducer = (state = initialState, { type, ...payload }) => {
-    const { nbOfCompo, loading } = state;
+    const { nbOfCompo, loading, activeCompo } = state;
 
     switch (type) {
         case 'CHANGE_NB_OF_COMPO':
@@ -29,6 +31,14 @@ const reducer = (state = initialState, { type, ...payload }) => {
             )(state);
         case 'TOGGLE_LOADING':
             return set('loading', loading, state);
+        case 'SET_RANDOM_COMPOS':
+            return set('randomCompos', payload.compos, state);
+        case 'NAVIGATE_COMPO':
+            if ('previous' === payload.direction) {
+                return set('activeCompo', Math.max(activeCompo - 1, 0), state);
+            }
+
+            return set('activeCompo', Math.min(activeCompo + 1, nbOfCompo - 1), state);
         default:
             return state;
     }

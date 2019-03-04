@@ -1,17 +1,26 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Image } from 'cloudinary-react';
 import './Item.scss';
 
-const Item = () => (
+const Item = ({ item: { imageUrl, name }, type }) => (
     <div className="item flex flex-between">
-        <Image publicId="mk8dxRandomer/vehicules/flamboyante.png" width="90" />
+        <Image publicId={`mk8dxRandomer/${type}/${imageUrl}`} width="90" />
         <div className="infos">
-            <p>Flamboyante</p>
+            <p>{name}</p>
             <button className="switch-button">
                 Switch !
             </button>
         </div>
     </div>
 );
+
+Item.propTypes = {
+    item: PropTypes.shape({
+        imageUrl: PropTypes.string.isRequired,
+        name: PropTypes.string.isRequired,
+    }).isRequired,
+    type: PropTypes.string.isRequired,
+};
 
 export default Item;
