@@ -6,6 +6,10 @@
     border-radius: $radius;
     padding: 3px;
     cursor: pointer;
+    &.focused {
+        background-color: white;
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 0.2em 1em;
+    }
 }
 
 .loader {

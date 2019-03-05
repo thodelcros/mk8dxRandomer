@@ -13,7 +13,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, { type, ...payload }) => {
-    const { nbOfCompo, loading, activeCompo } = state;
+    const { nbOfCompo, loading, activeCompo, characters } = state;
 
     switch (type) {
         case 'CHANGE_NB_OF_COMPO':
@@ -37,8 +37,13 @@ const reducer = (state = initialState, { type, ...payload }) => {
             if ('previous' === payload.direction) {
                 return set('activeCompo', Math.max(activeCompo - 1, 0), state);
             }
+            if ('beginning' === payload.direction) {
+                return set('activeCompo', 0, state);
+            }
 
             return set('activeCompo', Math.min(activeCompo + 1, nbOfCompo - 1), state);
+        case 'TOGGLE_CHARACTER_SELECTION':
+            return set(['characters', payload.id, 'focused'], !characters[payload.id].focused, state);
         default:
             return state;
     }

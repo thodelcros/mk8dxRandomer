@@ -22,8 +22,13 @@ export const loadData = () => async (dispatch, _, db) => {
     const data = await types.reduce(async (previousPromise, type) => {
         const firebaseData = await previousPromise;
         const dbRes = await db.ref(`/${type}`).once('value');
-        const items = await dbRes.val();
-        // eslint-disable-next-line no-param-reassign
+        const dbItems = await dbRes.val();
+        const items = Object.entries(dbItems).reduce((obj, [id, character]) => {
+            // eslint-disable-next-line no-param-reassign
+            obj[id] = { ...character, focused: false };
+
+            return obj;
+        }, {});
         firebaseData[type] = items;
 
         return firebaseData;
@@ -33,6 +38,11 @@ export const loadData = () => async (dispatch, _, db) => {
 
 export const toggleLoading = () => ({
     type: 'TOGGLE_LOADING',
+});
+
+export const navigateCompo = (direction) => ({
+    type: 'NAVIGATE_COMPO',
+    direction,
 });
 
 const getCompos = (getState, size) => {
@@ -64,6 +74,11 @@ const switchItem = (getState, type) => {
     return newItems[0];
 };
 
+export const toggleCharacterSelection = (id) => ({
+    type: 'TOGGLE_CHARACTER_SELECTION',
+    id,
+});
+
 export const randomize = (method, type) => (dispatch, getState) => {
     const { nbOfCompo, activeCompo, randomCompos } = getState();
     let compos = {};
@@ -82,12 +97,8 @@ export const randomize = (method, type) => (dispatch, getState) => {
 
         default:
             compos = getCompos(getState, nbOfCompo);
+            dispatch(navigateCompo('beginning'));
             break;
     }
     dispatch(setRandomCompos(compos));
 };
-
-export const navigateCompo = (direction) => ({
-    type: 'NAVIGATE_COMPO',
-    direction,
-});

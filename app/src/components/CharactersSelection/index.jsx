@@ -5,9 +5,10 @@ import { isEmpty } from 'lodash/fp';
 import { connect } from 'react-redux';
 import { Image } from 'cloudinary-react';
 import classNames from 'classnames';
+import { toggleCharacterSelection } from '../../store/actions';
 import './CharactersSelection.scss';
 
-const CharactersSelection = ({ characters, loading }) => (
+const CharactersSelection = ({ characters, loading, toggleFocus }) => (
     loading || isEmpty(characters) ?
         (
             <div className="loader flex flex-around">
@@ -21,6 +22,7 @@ const CharactersSelection = ({ characters, loading }) => (
                         <div
                             className={classNames('character-head', { focused })}
                             key={id}
+                            onClick={() => toggleFocus(id)}
                         >
                             <Image key={id} publicId={`mk8dxRandomer/characters/${imageUrl}`} width="36" />
                         </div>
@@ -36,6 +38,12 @@ CharactersSelection.propTypes = {
         focused: PropTypes.bool,
     })),
     loading: PropTypes.bool.isRequired,
+    toggleFocus: PropTypes.func.isRequired,
 };
 
-export default connect(({ characters, loading }) => ({ characters, loading }))(CharactersSelection);
+export default connect(
+    ({ characters, loading }) => ({ characters, loading }),
+    (dispatch) => ({
+        toggleFocus: (id) => dispatch(toggleCharacterSelection(id)),
+    }),
+)(CharactersSelection);
