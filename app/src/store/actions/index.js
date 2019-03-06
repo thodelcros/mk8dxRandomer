@@ -1,4 +1,4 @@
-import { sampleSize, get } from 'lodash/fp';
+import { sampleSize, get, pull } from 'lodash/fp';
 import getTypeKey from '../../utils/content/getTypeKey';
 
 const types = ['characters', 'wheels', 'gliders', 'vehicules'];
@@ -21,15 +21,18 @@ const setRandomCompos = (compos) => ({
 export const loadData = () => async (dispatch, _, db) => {
     const data = await types.reduce(async (previousPromise, type) => {
         const firebaseData = await previousPromise;
-        const dbRes = await db.ref(`/${type}`).once('value');
+        const dbRes = await db
+            .ref(`/${type}`)
+            .once('value');
         const dbItems = await dbRes.val();
-        const items = Object.entries(dbItems).reduce((obj, [id, character]) => {
-            // eslint-disable-next-line no-param-reassign
-            obj[id] = { ...character, focused: false };
+        firebaseData[type] = Object
+            .entries(dbItems)
+            .reduce((obj, [id, character]) => {
+                // eslint-disable-next-line no-param-reassign
+                obj[id] = { ...character, focused: false };
 
-            return obj;
-        }, {});
-        firebaseData[type] = items;
+                return obj;
+            }, {});
 
         return firebaseData;
     }, Promise.resolve({}));
@@ -45,11 +48,12 @@ export const navigateCompo = (direction) => ({
     direction,
 });
 
-const getCompos = (getState, size) => {
-    const rawData = types.reduce((obj, type) => {
-        const data = get(type)(getState());
+const getCompos = (getState, size, withoutCharacters = false) => {
+    const rawData = [
+        ...withoutCharacters ? pull('characters')(types) : types,
+    ].reduce((obj, type) => {
         // eslint-disable-next-line no-param-reassign
-        obj[type] = sampleSize(size)(data);
+        obj[type] = sampleSize(size)(get(type)(getState()));
 
         return obj;
     }, {});
@@ -67,12 +71,7 @@ const getCompos = (getState, size) => {
     }, {});
 };
 
-const switchItem = (getState, type) => {
-    const data = get(type)(getState());
-    const newItems = sampleSize(1)(data);
-
-    return newItems[0];
-};
+const switchItem = (getState, type) => sampleSize(1)(get(type)(getState()))[0];
 
 export const toggleCharacterSelection = (id) => ({
     type: 'TOGGLE_CHARACTER_SELECTION',
@@ -84,11 +83,10 @@ export const randomize = (method, type) => (dispatch, getState) => {
     let compos = {};
     switch (method) {
         case 'item': {
-            const compo = randomCompos[activeCompo];
             compos = {
                 ...randomCompos,
                 [activeCompo]: {
-                    ...compo,
+                    ...randomCompos[activeCompo],
                     [getTypeKey(type)]: switchItem(getState, type),
                 },
             };
