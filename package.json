@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:thodelcros/mk8dxRandomer.git",
+  "homepage": "https://github.com/thodelcros/mk8dxRandomer",
   "author": "Thomas Delcros <delcrosthomas@gmail.com>",
   "license": "MIT",
   "dependencies": {
@@ -12,7 +13,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
-    "bootstrap": "^4.3.0",
+    "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
     "cloudinary-core": "^2.6.2",
     "cloudinary-react": "^1.1.0",
@@ -26,6 +27,7 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-react": "^7.8.2",
     "firebase": "^5.8.2",
+    "gh-pages": "^2.0.1",
     "history": "^4.7.2",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
@@ -51,6 +53,8 @@
   },
   "scripts": {
     "start:dev": "webpack-dev-server",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d dist"
   }
 }
