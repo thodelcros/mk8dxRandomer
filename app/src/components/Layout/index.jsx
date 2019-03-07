@@ -7,7 +7,7 @@ import Actions from '../Actions';
 import Main from '../Main';
 import Tabs from '../Tabs';
 
-const Layout = ({ component: Component, text, displayTabs, focus, back }) => (
+const Layout = ({ component: Component, text, displayTabs, focus, back, match: { path } }) => (
     <Fragment>
         <Navbar />
         <Wrapper>
@@ -16,7 +16,7 @@ const Layout = ({ component: Component, text, displayTabs, focus, back }) => (
                 {displayTabs ? <Tabs focus={focus} /> : null}
                 <Component />
             </Main>
-            <Actions back={back} />
+            <Actions back={back} current={path} />
         </Wrapper>
     </Fragment>
 );

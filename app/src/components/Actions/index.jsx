@@ -31,7 +31,9 @@ Actions.propTypes = {
 
 export default connect(
     null,
-    (dispatch) => ({
-        startRandomizer: () => dispatch(randomize()),
+    (dispatch, { current }) => ({
+        startRandomizer: '/characters' === current ?
+            () => dispatch(randomize('onlyItems')) :
+            () => dispatch(randomize()),
     }),
 )(Actions);

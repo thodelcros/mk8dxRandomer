@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { navigateCompo } from '../../../store/actions';
 import './Navigation.scss';
 
-const Navigation = ({ navigate, activeCompo, nbOfCompo }) => (
+const Navigation = ({ navigate, activeCompo, randomCompos }) => (
     <div className="navigation">
         <button
             onClick={() => navigate('previous')}
@@ -15,7 +15,7 @@ const Navigation = ({ navigate, activeCompo, nbOfCompo }) => (
         </button>
         <button
             onClick={() => navigate('next')}
-            disabled={activeCompo >= nbOfCompo - 1}
+            disabled={activeCompo >= Object.keys(randomCompos).length - 1}
             className="navigation-button"
         >
             <i className="fas fa-arrow-right" />
@@ -25,12 +25,12 @@ const Navigation = ({ navigate, activeCompo, nbOfCompo }) => (
 
 Navigation.propTypes = {
     navigate: PropTypes.func.isRequired,
-    nbOfCompo: PropTypes.number.isRequired,
+    randomCompos: PropTypes.shape({}).isRequired,
     activeCompo: PropTypes.number.isRequired,
 };
 
 export default connect(
-    ({ activeCompo, nbOfCompo }) => ({ activeCompo, nbOfCompo }),
+    ({ activeCompo, randomCompos }) => ({ activeCompo, randomCompos }),
     (dispatch) => ({
         navigate: (direction) => dispatch(navigateCompo(direction)),
     }),

@@ -1,4 +1,4 @@
-import { sampleSize, get, pull } from 'lodash/fp';
+import { sampleSize, get, pull, flow, filter } from 'lodash/fp';
 import getTypeKey from '../../utils/content/getTypeKey';
 
 const types = ['characters', 'wheels', 'gliders', 'vehicules'];
@@ -48,6 +48,11 @@ export const navigateCompo = (direction) => ({
     direction,
 });
 
+const getFocusedCharacters = (characters) => flow(
+    Object.values,
+    filter(({ focused }) => focused),
+)(characters);
+
 const getCompos = (getState, size, withoutCharacters = false) => {
     const rawData = [
         ...withoutCharacters ? pull('characters')(types) : types,
@@ -57,11 +62,12 @@ const getCompos = (getState, size, withoutCharacters = false) => {
 
         return obj;
     }, {});
+    const { characters } = getState();
 
     return [...Array(size)].reduce((obj, compo, index) => {
         // eslint-disable-next-line no-param-reassign
         obj[index] = {
-            character: rawData.characters[index],
+            character: withoutCharacters ? getFocusedCharacters(characters)[index] : rawData.characters[index],
             glider: rawData.gliders[index],
             vehicule: rawData.vehicules[index],
             wheels: rawData.wheels[index],
@@ -79,7 +85,7 @@ export const toggleCharacterSelection = (id) => ({
 });
 
 export const randomize = (method, type) => (dispatch, getState) => {
-    const { nbOfCompo, activeCompo, randomCompos } = getState();
+    const { nbOfCompo, activeCompo, randomCompos, characters } = getState();
     let compos = {};
     switch (method) {
         case 'item': {
@@ -90,6 +96,13 @@ export const randomize = (method, type) => (dispatch, getState) => {
                     [getTypeKey(type)]: switchItem(getState, type),
                 },
             };
+            break;
+        }
+        case 'onlyItems': {
+            const nbOfFocusedCharacters = getFocusedCharacters(characters).length;
+            console.log(getFocusedCharacters(characters));
+            compos = getCompos(getState, nbOfFocusedCharacters, true);
+            console.log(compos);
             break;
         }
 
