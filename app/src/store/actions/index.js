@@ -1,4 +1,4 @@
-import { sampleSize, get, pull, flow, filter } from 'lodash/fp';
+import { sampleSize, get, pull, flow, filter, reduce } from 'lodash/fp';
 import getTypeKey from '../../utils/content/getTypeKey';
 
 const types = ['characters', 'wheels', 'gliders', 'vehicules'];
@@ -48,21 +48,21 @@ export const navigateCompo = (direction) => ({
     direction,
 });
 
-const getFocusedCharacters = (characters) => flow(
+export const getFocusedCharacters = (characters) => flow(
     Object.values,
     filter(({ focused }) => focused),
 )(characters);
 
-const getCompos = (getState, size, withoutCharacters = false) => {
+const createCompos = (state, size, withoutCharacters = false) => {
     const rawData = [
         ...withoutCharacters ? pull('characters')(types) : types,
     ].reduce((obj, type) => {
         // eslint-disable-next-line no-param-reassign
-        obj[type] = sampleSize(size)(get(type)(getState()));
+        obj[type] = sampleSize(size)(get(type)(state));
 
         return obj;
     }, {});
-    const { characters } = getState();
+    const { characters } = state;
 
     return [...Array(size)].reduce((obj, compo, index) => {
         // eslint-disable-next-line no-param-reassign
@@ -77,11 +77,22 @@ const getCompos = (getState, size, withoutCharacters = false) => {
     }, {});
 };
 
-const switchItem = (getState, type) => sampleSize(1)(get(type)(getState()))[0];
+const switchItem = (state, type) => sampleSize(1)(get(type)(state))[0];
 
 export const toggleCharacterSelection = (id) => ({
     type: 'TOGGLE_CHARACTER_SELECTION',
     id,
+});
+
+const resetCharactersSelection = (characters) => ({
+    type: 'RESET_CHARACTERS_SELECTION',
+    characters: Object.entries(characters)
+        .reduce((obj, [id, character]) => {
+            // eslint-disable-next-line no-param-reassign
+            obj[id] = { ...character, focused: false };
+
+            return obj;
+        }, {}),
 });
 
 export const randomize = (method, type) => (dispatch, getState) => {
@@ -93,23 +104,22 @@ export const randomize = (method, type) => (dispatch, getState) => {
                 ...randomCompos,
                 [activeCompo]: {
                     ...randomCompos[activeCompo],
-                    [getTypeKey(type)]: switchItem(getState, type),
+                    [getTypeKey(type)]: switchItem(getState(), type),
                 },
             };
             break;
         }
         case 'onlyItems': {
             const nbOfFocusedCharacters = getFocusedCharacters(characters).length;
-            console.log(getFocusedCharacters(characters));
-            compos = getCompos(getState, nbOfFocusedCharacters, true);
-            console.log(compos);
+            compos = createCompos(getState(), nbOfFocusedCharacters, true);
             break;
         }
 
         default:
-            compos = getCompos(getState, nbOfCompo);
+            compos = createCompos(getState(), nbOfCompo);
             dispatch(navigateCompo('beginning'));
             break;
     }
     dispatch(setRandomCompos(compos));
+    dispatch(resetCharactersSelection(characters));
 };

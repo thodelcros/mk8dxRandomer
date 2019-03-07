@@ -17,3 +17,18 @@
     height: 85%;
 }
 
+.error-space {
+    height: 36px;
+}
+
+.error {
+    width: 90%;
+    text-align: center;
+    padding: 5px;
+    margin: 0 auto 10px auto;
+    border: 1px solid rgb(168, 135, 45);
+    color: rgb(168, 135, 45);
+    background-color: #FFF2CD;
+    border-radius: $radius;
+    position: relative;
+}

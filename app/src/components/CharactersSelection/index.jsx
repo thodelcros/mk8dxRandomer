@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Loader from 'react-loader-spinner';
 import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash/fp';
 import { connect } from 'react-redux';
 import { Image } from 'cloudinary-react';
 import classNames from 'classnames';
-import { toggleCharacterSelection } from '../../store/actions';
+import { toggleCharacterSelection, getFocusedCharacters } from '../../store/actions';
 import './CharactersSelection.scss';
 
 const CharactersSelection = ({ characters, loading, toggleFocus }) => (
@@ -16,19 +16,26 @@ const CharactersSelection = ({ characters, loading, toggleFocus }) => (
             </div>
         ) :
         (
-            <div className="characters-selection flex flex-wrap flex-around">
-                {
-                    Object.entries(characters).map(([id, { imageUrl, focused }]) => (
-                        <div
-                            className={classNames('character-head', { focused })}
-                            key={id}
-                            onClick={() => toggleFocus(id)}
-                        >
-                            <Image key={id} publicId={`mk8dxRandomer/characters/${imageUrl}`} width="36" />
-                        </div>
-                    ))
-                }
-            </div>
+            <Fragment>
+                <div className="error-space">
+                    <div className="error">
+                        {'Selectionne au moins un starter'}
+                    </div>
+                </div>
+                <div className="characters-selection flex flex-wrap flex-around">
+                    {
+                        Object.entries(characters).map(([id, { imageUrl, focused }]) => (
+                            <div
+                                className={classNames('character-head', { focused })}
+                                key={id}
+                                onClick={() => toggleFocus(id)}
+                            >
+                                <Image key={id} publicId={`mk8dxRandomer/characters/${imageUrl}`} width="36" />
+                            </div>
+                        ))
+                    }
+                </div>
+            </Fragment>
         )
 );
 

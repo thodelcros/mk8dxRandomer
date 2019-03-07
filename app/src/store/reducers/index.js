@@ -9,6 +9,7 @@ const initialState = {
     loading: false,
     randomCompos: {},
     activeCompo: 0,
+    error: null,
 };
 
 const reducer = (state = initialState, { type, ...payload }) => {
@@ -43,6 +44,9 @@ const reducer = (state = initialState, { type, ...payload }) => {
             return set('activeCompo', Math.min(activeCompo + 1, Object.keys(randomCompos).length - 1), state);
         case 'TOGGLE_CHARACTER_SELECTION':
             return set(['characters', payload.id, 'focused'], !characters[payload.id].focused, state);
+        case 'RESET_CHARACTERS_SELECTION':
+            console.log(payload.characters);
+            return set('characters', payload.characters, state);
         default:
             return state;
     }
