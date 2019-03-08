@@ -21,7 +21,7 @@ class App extends Component {
     constructor() {
         super();
         this.history = createBrowserHistory();
-        /* eslint-disable no-underscore-dangle */
+        /* eslint-disable-next-line */
         this.composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
         /* eslint-enable */
         this.store = createStore(

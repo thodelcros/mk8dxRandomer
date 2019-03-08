@@ -2,6 +2,7 @@
 
 .character {
     .infos {
+        padding-left: 10px;
         p {
             font-size: $big-font-size-support;
             font-weight: bold;
@@ -11,7 +12,7 @@
         p:first-child {
             font-size: $big-font-size;
             color: $text-default;
-            margin-bottom: -15px;
+            line-height: 25px;
         }
     }
 }

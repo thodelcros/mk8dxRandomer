@@ -7,10 +7,10 @@ import { connect } from 'react-redux';
 import { randomize, getFocusedCharacters } from '../../store/actions';
 import './Actions.scss';
 
-const Actions = ({ startRandomizer, back, characters }) => {
+const Actions = ({ startRandomizer, back, characters, current }) => {
     let path = '/results';
+    if (isEmpty(getFocusedCharacters(characters)) && '/characters' === current) { path = '/characters'; }
     if (back) { path = '/'; }
-    if (isEmpty(getFocusedCharacters(characters))) { path = '/characters'; }
 
     return (
         <div className="actions flex block">
@@ -35,6 +35,7 @@ Actions.propTypes = {
     startRandomizer: PropTypes.func.isRequired,
     back: PropTypes.bool,
     characters: PropTypes.shape({}).isRequired,
+    current: PropTypes.string.isRequired,
 };
 
 export default connect(

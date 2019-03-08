@@ -117,9 +117,10 @@ export const randomize = (method, type) => (dispatch, getState) => {
 
         default:
             compos = createCompos(getState(), nbOfCompo);
-            dispatch(navigateCompo('beginning'));
             break;
     }
+    dispatch(navigateCompo('beginning'));
     dispatch(setRandomCompos(compos));
     dispatch(resetCharactersSelection(characters));
+    dispatch(changeNbOfCompo('reset'));
 };

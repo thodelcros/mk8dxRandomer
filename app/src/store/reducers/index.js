@@ -21,6 +21,10 @@ const reducer = (state = initialState, { type, ...payload }) => {
                 return set('nbOfCompo', Math.max(nbOfCompo - 1, 1), state);
             }
 
+            if ('reset' === payload.action) {
+                return set('nbOfCompo', 1, state);
+            }
+
             return set('nbOfCompo', Math.min(nbOfCompo + 1, 12), state);
         case 'SET_DATA':
             return flow(
@@ -45,7 +49,6 @@ const reducer = (state = initialState, { type, ...payload }) => {
         case 'TOGGLE_CHARACTER_SELECTION':
             return set(['characters', payload.id, 'focused'], !characters[payload.id].focused, state);
         case 'RESET_CHARACTERS_SELECTION':
-            console.log(payload.characters);
             return set('characters', payload.characters, state);
         default:
             return state;
