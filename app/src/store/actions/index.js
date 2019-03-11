@@ -1,4 +1,4 @@
-import { sampleSize, get, pull, flow, filter, reduce } from 'lodash/fp';
+import { sampleSize, get, pull, flow, filter } from 'lodash/fp';
 import getTypeKey from '../../utils/content/getTypeKey';
 
 const types = ['characters', 'wheels', 'gliders', 'vehicules'];
@@ -112,14 +112,15 @@ export const randomize = (method, type) => (dispatch, getState) => {
         case 'onlyItems': {
             const nbOfFocusedCharacters = getFocusedCharacters(characters).length;
             compos = createCompos(getState(), nbOfFocusedCharacters, true);
+            dispatch(navigateCompo('beginning'));
             break;
         }
 
         default:
             compos = createCompos(getState(), nbOfCompo);
+            dispatch(navigateCompo('beginning'));
             break;
     }
-    dispatch(navigateCompo('beginning'));
     dispatch(setRandomCompos(compos));
     dispatch(resetCharactersSelection(characters));
     dispatch(changeNbOfCompo('reset'));

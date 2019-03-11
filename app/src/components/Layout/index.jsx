@@ -27,6 +27,9 @@ Layout.propTypes = {
     displayTabs: PropTypes.bool,
     focus: PropTypes.string,
     back: PropTypes.bool,
+    match: PropTypes.shape({
+        path: PropTypes.string.isRequired,
+    }).isRequired,
 };
 
 Layout.defaultProps = {

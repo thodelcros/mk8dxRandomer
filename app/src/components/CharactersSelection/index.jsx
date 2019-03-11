@@ -5,7 +5,7 @@ import { isEmpty } from 'lodash/fp';
 import { connect } from 'react-redux';
 import { Image } from 'cloudinary-react';
 import classNames from 'classnames';
-import { toggleCharacterSelection, getFocusedCharacters } from '../../store/actions';
+import { toggleCharacterSelection } from '../../store/actions';
 import './CharactersSelection.scss';
 
 const CharactersSelection = ({ characters, loading, toggleFocus }) => (
