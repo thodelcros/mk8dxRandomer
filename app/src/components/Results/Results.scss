@@ -1,4 +1,16 @@
 .results {
-    height: 90%;
+    height: 100%;
     padding: 0 20px;
+    & > * {
+        width: 100%;
+    }
+}
+
+@media (max-height: 720px) {
+    .results .image {
+        transform: scale(0.7);
+    }
+    p {
+        font-size: 1rem;
+    }
 }

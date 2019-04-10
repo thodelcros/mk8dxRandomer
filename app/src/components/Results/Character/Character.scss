@@ -16,3 +16,13 @@
         }
     }
 }
+
+@media (max-height: 720px) {
+    .character {
+        .infos {
+            p, p:first-child {
+                font-size: $reduced-big-font-size;
+            }
+        }
+    }
+}

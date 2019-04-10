@@ -9,7 +9,7 @@ import Navigation from './Navigation';
 import './Results.scss';
 
 const Results = ({ randomCompos, activeCompo }) => (
-    <div className="results">
+    <div className="results flex flex-around-column">
         {!isEmpty(randomCompos) ? (
             <Fragment>
                 <Character character={randomCompos[activeCompo].character} />

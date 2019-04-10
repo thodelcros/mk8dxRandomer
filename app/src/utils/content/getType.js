@@ -31,7 +31,7 @@ const getType = (character) => {
             'Daisy',
             'Villageoise',
             'Villageois',
-            'Peach Chat',
+            'Peach chat',
         ],
         heavy: [
             'Mario de Métal',

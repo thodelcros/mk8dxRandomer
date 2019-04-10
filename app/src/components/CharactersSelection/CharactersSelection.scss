@@ -32,3 +32,12 @@
     border-radius: $radius;
     position: relative;
 }
+
+@media (max-height: 720px) {
+    .characters-selection {
+        .character-head {
+            transform: scale(0.8);
+            margin: 3px;
+        }
+    }
+}
